@@ -6,38 +6,6 @@ call pathogen#helptags()
 autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
 autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
 
-" skeletons
-function! SKEL_spec()
-    0r /usr/share/vim/current/skeletons/skeleton.spec
-    language time en_US
-    if $USER != ''
-        let login = $USER
-    elseif $LOGNAME != ''
-        let login = $LOGNAME
-    else
-        let login = 'unknown'
-    endif
-    let newline = stridx(login, "\n")
-    if newline != -1
-        let login = strpart(login, 0, newline)
-    endif
-    if $HOSTNAME != ''
-        let hostname = $HOSTNAME
-    else
-        let hostname = system('hostname -f')
-        if v:shell_error
-            let hostname = 'localhost'
-        endif
-    endif
-    let newline = stridx(hostname, "\n")
-    if newline != -1
-        let hostname = strpart(hostname, 0, newline)
-    endif
-    exe "%s/specRPM_CREATION_DATE/" . strftime("%a\ %b\ %d\ %Y") . "/ge"
-    exe "%s/specRPM_CREATION_AUTHOR_MAIL/" . login . "@" . hostname . "/ge"
-    exe "%s/specRPM_CREATION_NAME/" . expand("%:t:r") . "/ge"
-    setf spec
-endfunction
 autocmd BufNewFile	*.spec	call SKEL_spec()
 " filetypes
 filetype plugin on
@@ -104,8 +72,8 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 set showcmd
 set foldmethod=indent
 set autoindent
-set expandtab
-set smarttab
+"set expandtab
+"set smarttab
 set mouse=a
 " highlight things that are found in a search
 " set hlsearch
@@ -119,17 +87,17 @@ autocmd BufEnter *.phtml set syn=php
 " color definitions
 if !exists("autocmd_colorscheme_loaded")
     let autocmd_colorscheme_loaded = 1
-    autocmd ColorScheme * highlight TodoRed      ctermbg=darkgreen guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
-    autocmd ColorScheme * highlight TodoOrange   ctermbg=darkgreen guibg=#002b37 ctermfg=LightMagenta guifg=#E0841B
-    autocmd ColorScheme * highlight TodoYellow   ctermbg=darkgreen guibg=#002b37 ctermfg=LightYellow  guifg=#E0D91B
+    autocmd ColorScheme * highlight TodoDarkRed      ctermbg=darkred guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
+    autocmd ColorScheme * highlight TodoRed   ctermbg=red guibg=#002b37 ctermfg=LightMagenta guifg=#E0841B
+    autocmd ColorScheme * highlight TodoYellow   ctermbg=yellow guibg=#002b37 ctermfg=red  guifg=#E0841B
 endif
 colorscheme herald
 
 if has("autocmd")
     if v:version > 701
-        autocmd Syntax * call matchadd('TodoRed',  '\W\zs\(TODO1\)')
-        autocmd Syntax * call matchadd('TodoOrange', '\W\zs\(TODO2\)')
-        autocmd Syntax * call matchadd('ToDoYellow', '\W\zs\(TODO3\)')
+        autocmd Syntax * call matchadd('TodoDarkRed',  '\W\zs\(TODO1\)')
+        autocmd Syntax * call matchadd('TodoRed', '\W\zs\(TODO2\)')
+        autocmd Syntax * call matchadd('TodoYellow', '\W\zs\(TODO3\)')
     endif
 endif
 
@@ -139,4 +107,4 @@ nmap <F4> :w<CR>:make<CR>:cw<CR>
 " supertab + snipmate
 "set completeopt = menu,menuone,longest
 "set pumheight = 15
-let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabDefaultCompletionType = "context"
