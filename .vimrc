@@ -1,31 +1,53 @@
 " ~/.vimrc (configuration file for vim only)
-
-call pathogen#infect()
-
-" filetypes
-filetype plugin on
-filetype indent on
+filetype off
+call pathogen#runtime_append_all_bundles()
+filetype plugin indent on
 
 nmap <silent> <C-d> :NERDTreeToggle<CR>
 imap <silent> <C-d> :NERDTreeToggle<CR>
 
-set hidden
+set modelines=0 " don't use modelines
+
+set nocompatible
+
+set encoding=utf-8
+
 set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+set hidden
 set autoindent
 set number
-set shiftwidth=4
 set copyindent
 set shiftround
-set showmatch
-set ignorecase
-set smarttab
-"don't beep
-set visualbell
+set ttyfast
+set scrolloff=3
+set cursorline
+set ruler
+set backspace=indent,eol,start
+"set relativenumber " show absolute line number
+set undofile " unlimited undos with .un~ files
+set visualbell "don't beep
 set noerrorbells
-"undo level
-set undolevels=1000
 set title
+set ignorecase
+set smartcase
+let mapleader = "," " this needs some testing -> replaces \
+set gdefault " substitutions are made globally
+" handle search highlight and clear
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+" use tab to navigate match bracket pairs
+nnoremap <tab> %
+vnoremap <tab> %
+" set smarttab
+" set undolevels=1000
 
+let &statusline="%< %f %{fugitive#statusline()} ... (When I grow up, I'd like to be dangerous.)"
 "navigation helper
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -69,16 +91,30 @@ augroup END
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 set showcmd
-set foldmethod=indent
 set autoindent
-"set expandtab
-"set smarttab
+" set foldmethod=indent
+" set expandtab
+" set smarttab
 set mouse=a
-" highlight things that are found in a search
-" set hlsearch
 set nohidden
 set noerrorbells
 set visualbell
+" handle long lines correctly
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+set colorcolumn=85
+" show invisibile characters -> getting used to
+" set list
+" set listchars=tab:▸\ ,eol:¬
+" navigate by screen line
+nnoremap j gj
+nnoremap k gk
+" remap fold tag
+nnoremap <leader>ft Vatzf
+
+" autosave on lost focus
+au FocusLost * :wa
 
 "for Zend phtml files
 autocmd BufEnter *.phtml set syn=php
@@ -100,3 +136,4 @@ nmap <F4> :w<CR>:make<CR>:cw<CR>
 " let g:SuperTabDefaultCompletionType = "context"
 
 " fonts
+nnoremap <leader>a :Ack
