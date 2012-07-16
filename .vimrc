@@ -127,9 +127,6 @@ if has("autocmd")
     endif
 endif
 
-"jslint integration
-nmap <F4> :w<CR>:make<CR>:cw<CR>
-
 " supertab + snipmate
 "set completeopt = menu,menuone,longest
 "set pumheight = 15
@@ -137,3 +134,5 @@ nmap <F4> :w<CR>:make<CR>:cw<CR>
 
 " fonts
 nnoremap <leader>a :Ack
+
+nnoremap <F5> :GundoToggle<CR>
