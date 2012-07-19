@@ -37,9 +37,9 @@ set smartcase
 let mapleader = "," " this needs some testing -> replaces \
 set gdefault " substitutions are made globally
 " handle search highlight and clear
-set incsearch
-set showmatch
-set hlsearch
+"set incsearch
+"set showmatch
+"set hlsearch
 nnoremap <leader><space> :noh<cr>
 " use tab to navigate match bracket pairs
 nnoremap <tab> %
