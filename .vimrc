@@ -2,6 +2,15 @@
 filetype off
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
+call pathogen#helptags()
+
+autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
+
+" filetypes
+filetype plugin on
+filetype indent on
+>>>>>>> Work_Branch
 
 nmap <silent> <C-d> :NERDTreeToggle<CR>
 imap <silent> <C-d> :NERDTreeToggle<CR>
@@ -136,3 +145,5 @@ endif
 nnoremap <leader>a :Ack
 
 nnoremap <F5> :GundoToggle<CR>
+" font settings
+set guifont=Inconsolata\ 11
