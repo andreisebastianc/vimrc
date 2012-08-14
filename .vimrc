@@ -126,7 +126,7 @@ nnoremap <leader>ft Vatzf
 au FocusLost * :wa
 
 "for Zend phtml files
-autocmd BufEnter *.phtml set syn=php
+"autocmd BufEnter *.phtml set syn=php
 
 if has("autocmd")
     if v:version > 701
@@ -141,9 +141,7 @@ endif
 "set pumheight = 15
 " let g:SuperTabDefaultCompletionType = "context"
 
-" fonts
 nnoremap <leader>a :Ack
-
 nnoremap <F5> :GundoToggle<CR>
 " font settings
 set guifont=Inconsolata\ 11
