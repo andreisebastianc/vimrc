@@ -10,7 +10,6 @@ autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bu
 " filetypes
 filetype plugin on
 filetype indent on
->>>>>>> Work_Branch
 
 nmap <silent> <C-d> :NERDTreeToggle<CR>
 imap <silent> <C-d> :NERDTreeToggle<CR>
