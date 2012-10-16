@@ -4,8 +4,8 @@ call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 call pathogen#helptags()
 
-autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
+"autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+"autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
 
 " filetypes
 filetype plugin on
@@ -82,7 +82,8 @@ endif
 set background=dark
 "let g:solarized_termcolors=256
 "colorscheme herald
-colorscheme solarized
+"colorscheme solarized
+colorscheme Tomorrow-Night-Bright
 
 filetype plugin indent on "Enable filetype-specific indenting and plugins
 
@@ -142,5 +143,3 @@ endif
 
 nnoremap <leader>a :Ack
 nnoremap <F5> :GundoToggle<CR>
-" font settings
-set guifont=Inconsolata\ 11
