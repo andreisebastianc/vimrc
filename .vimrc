@@ -83,7 +83,8 @@ set background=dark
 "let g:solarized_termcolors=256
 "colorscheme herald
 "colorscheme solarized
-colorscheme Tomorrow-Night-Bright
+"colorscheme Tomorrow-Night-Bright
+colorscheme Tomorrow
 
 filetype plugin indent on "Enable filetype-specific indenting and plugins
 
@@ -101,7 +102,7 @@ augroup END
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 set showcmd
 set autoindent
-" set foldmethod=indent
+"set foldmethod=indent
 " set expandtab
 " set smarttab
 set mouse=a
@@ -114,8 +115,8 @@ set textwidth=79
 set formatoptions=qrn1
 set colorcolumn=85
 " show invisibile characters -> getting used to
-" set list
-" set listchars=tab:▸\ ,eol:¬
+set list
+set listchars=tab:▸\ ,eol:¬
 " navigate by screen line
 nnoremap j gj
 nnoremap k gk
@@ -130,9 +131,9 @@ au FocusLost * :wa
 
 if has("autocmd")
     if v:version > 701
+        autocmd Syntax * call matchadd('TodoYellow', '\W\zs\(TODO\)')
         autocmd Syntax * call matchadd('TodoDarkRed',  '\W\zs\(TODO1\)')
         autocmd Syntax * call matchadd('TodoRed', '\W\zs\(TODO2\)')
-        autocmd Syntax * call matchadd('TodoYellow', '\W\zs\(TODO3\)')
     endif
 endif
 
