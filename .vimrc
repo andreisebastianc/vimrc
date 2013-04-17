@@ -84,9 +84,8 @@ set background=dark
 "let g:solarized_termcolors=256
 "colorscheme herald
 "colorscheme solarized
-colorscheme Tomorrow-Night
-"colorscheme molokai
-"colorscheme Tomorrow
+"colorscheme Tomorrow-Night
+colorscheme Tomorrow
 
 filetype plugin indent on "Enable filetype-specific indenting and plugins
 
@@ -139,6 +138,7 @@ if has("autocmd")
         autocmd Syntax * call matchadd('TodoDarkRed',  '\W\zs\(TODO1\)')
         autocmd Syntax * call matchadd('TodoRed', '\W\zs\(TODO2\)')
         autocmd Syntax * call matchadd('TodoLightBlue', '\W\zs\(Server\)')
+        autocmd Syntax * call matchadd('TodoLightBlue', '\W\zs\(NOTE\)')
     endif
 endif
 
