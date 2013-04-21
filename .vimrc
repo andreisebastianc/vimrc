@@ -80,13 +80,13 @@ if !exists("autocmd_colorscheme_loaded")
 endif
 
 
-set background=dark
+set background=light
 "let g:solarized_termcolors=256
 "colorscheme herald
-"colorscheme solarized
+colorscheme solarized
 "colorscheme Tomorrow-Night-Bright
 "colorscheme Tomorrow-Night
-colorscheme Tomorrow
+"colorscheme Tomorrow
 
 filetype plugin indent on "Enable filetype-specific indenting and plugins
 
