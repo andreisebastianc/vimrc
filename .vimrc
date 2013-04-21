@@ -55,7 +55,7 @@ vnoremap <tab> %
 " set smarttab
 " set undolevels=1000
 
-let &statusline="%< %f %{fugitive#statusline()} ... (When I grow up, I'd like to be dangerous.)"
+"let &statusline="%< %f %{fugitive#statusline()} ... (When I grow up, I'd like to be dangerous.)"
 "navigation helper
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -76,6 +76,7 @@ if !exists("autocmd_colorscheme_loaded")
     autocmd ColorScheme * highlight TodoDarkRed      ctermbg=darkred guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
     autocmd ColorScheme * highlight TodoRed   ctermbg=red guibg=#002b37 ctermfg=LightMagenta guifg=#E0841B
     autocmd ColorScheme * highlight TodoYellow   ctermbg=yellow guibg=#002b37 ctermfg=red  guifg=#E0841B
+    autocmd ColorScheme * highlight TodoLightBlue   ctermbg=lightblue guibg=#002b37 ctermfg=red  guifg=#AEE6FF
 endif
 
 
@@ -84,6 +85,7 @@ set background=dark
 "colorscheme herald
 "colorscheme solarized
 "colorscheme Tomorrow-Night-Bright
+"colorscheme Tomorrow-Night
 colorscheme Tomorrow
 
 filetype plugin indent on "Enable filetype-specific indenting and plugins
@@ -92,7 +94,7 @@ augroup myfiletypes
     " Clear old autocmds in group
     autocmd!
     " autoindent with two spaces, always expand tabs
-    autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
+    autocmd FileType ruby,eruby,yaml,js set ai sw=2 sts=2 et
 augroup END
 
 :set cpoptions+=$
@@ -125,15 +127,19 @@ nnoremap <leader>ft Vatzf
 
 " autosave on lost focus
 au FocusLost * :wa
+nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
 
 "for Zend phtml files
 "autocmd BufEnter *.phtml set syn=php
 
 if has("autocmd")
     if v:version > 701
+        autocmd Syntax * call matchadd('TodoDarkRed',  '\W\zs\(BUG\)')
         autocmd Syntax * call matchadd('TodoYellow', '\W\zs\(TODO\)')
         autocmd Syntax * call matchadd('TodoDarkRed',  '\W\zs\(TODO1\)')
         autocmd Syntax * call matchadd('TodoRed', '\W\zs\(TODO2\)')
+        autocmd Syntax * call matchadd('TodoLightBlue', '\W\zs\(Server\)')
+        autocmd Syntax * call matchadd('TodoLightBlue', '\W\zs\(NOTE\)')
     endif
 endif
 
@@ -144,3 +150,5 @@ endif
 
 nnoremap <leader>a :Ack
 nnoremap <F5> :GundoToggle<CR>
+" font settings
+" set guifont=Inconsolata\ 11
