@@ -1,15 +1,10 @@
 " ~/.vimrc (configuration file for vim only)
-filetype off
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 call pathogen#helptags()
 
-"autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-"autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
-
-" filetypes
-filetype plugin on
-filetype indent on
+autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
 
 nmap <silent> <C-d> :NERDTreeToggle<CR>
 imap <silent> <C-d> :NERDTreeToggle<CR>
@@ -42,7 +37,7 @@ set noerrorbells
 set title
 set ignorecase
 set smartcase
-let mapleader = "," " this needs some testing -> replaces \
+let mapleader = "," " used for ack
 set gdefault " substitutions are made globally
 " handle search highlight and clear
 "set incsearch
@@ -53,7 +48,6 @@ nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 " set smarttab
-" set undolevels=1000
 
 "let &statusline="%< %f %{fugitive#statusline()} ... (When I grow up, I'd like to be dangerous.)"
 "navigation helper
@@ -68,19 +62,17 @@ set pastetoggle=<F2>
 :filetype plugin on
 set t_Co=256
 
-syntax enable
-
 " color definitions
 if !exists("autocmd_colorscheme_loaded")
     let autocmd_colorscheme_loaded = 1
     autocmd ColorScheme * highlight TodoDarkRed      ctermbg=darkred guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
     autocmd ColorScheme * highlight TodoRed   ctermbg=red guibg=#002b37 ctermfg=LightMagenta guifg=#E0841B
-    autocmd ColorScheme * highlight TodoYellow   ctermbg=yellow guibg=#002b37 ctermfg=red  guifg=#E0841B
+    autocmd ColorScheme * highlight TodoYellow   ctermbg=LightYellow guibg=#002b37 ctermfg=red  guifg=#E0841B
     autocmd ColorScheme * highlight TodoLightBlue   ctermbg=lightblue guibg=#002b37 ctermfg=red  guifg=#AEE6FF
 endif
 
 
-set background=dark
+set background=light
 "let g:solarized_termcolors=256
 "colorscheme herald
 colorscheme solarized
@@ -102,6 +94,7 @@ augroup END
 " new ones
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+
 set showcmd
 set autoindent
 "set foldmethod=indent
@@ -127,7 +120,7 @@ nnoremap <leader>ft Vatzf
 
 " autosave on lost focus
 au FocusLost * :wa
-nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+"nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
 
 "for Zend phtml files
 "autocmd BufEnter *.phtml set syn=php
@@ -143,12 +136,11 @@ if has("autocmd")
     endif
 endif
 
-" supertab + snipmate
-"set completeopt = menu,menuone,longest
-"set pumheight = 15
-" let g:SuperTabDefaultCompletionType = "context"
-
 nnoremap <leader>a :Ack
 nnoremap <F5> :GundoToggle<CR>
 " font settings
 " set guifont=Inconsolata\ 11
+
+syntax on
+filetype off
+filetype on
