@@ -136,9 +136,9 @@ if has("autocmd")
 endif
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <C-p> :Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+nnoremap <C-p> :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
 nnoremap <space>/ :Unite grep:.<cr>
-nnoremap <space>e :<C-r>:Unite -no-split -buffer-name=buffer  buffer<cr>
+nnoremap <space>e :Unite -no-split -buffer-name=buffer -quick-match buffer<cr>
 
 "let mapleader = "," " used for ack
 "nnoremap <leader>a :Ack
