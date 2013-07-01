@@ -30,14 +30,12 @@ set scrolloff=3
 set cursorline
 set ruler
 set backspace=indent,eol,start
-"set relativenumber " show absolute line number
 set undofile " unlimited undos with .un~ files
 set visualbell "don't beep
 set noerrorbells
 set title
 set ignorecase
 set smartcase
-let mapleader = "," " used for ack
 set gdefault " substitutions are made globally
 " handle search highlight and clear
 "set incsearch
@@ -61,16 +59,6 @@ cmap w!! w !sudo tee % >/dev/null
 set pastetoggle=<F2>
 :filetype plugin on
 set t_Co=256
-
-" color definitions
-if !exists("autocmd_colorscheme_loaded")
-    let autocmd_colorscheme_loaded = 1
-    autocmd ColorScheme * highlight TodoDarkRed      ctermbg=darkred guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
-    autocmd ColorScheme * highlight TodoRed   ctermbg=red guibg=#002b37 ctermfg=LightMagenta guifg=#E0841B
-    autocmd ColorScheme * highlight TodoYellow   ctermbg=LightYellow guibg=#002b37 ctermfg=red  guifg=#E0841B
-    autocmd ColorScheme * highlight TodoLightBlue   ctermbg=lightblue guibg=#002b37 ctermfg=red  guifg=#AEE6FF
-endif
-
 
 set background=light
 "let g:solarized_termcolors=256
@@ -109,21 +97,32 @@ set wrap
 set textwidth=79
 set formatoptions=qrn1
 set colorcolumn=85
+
 " show invisibile characters -> getting used to
 set list
 set listchars=tab:▸\ ,eol:¬
+
 " navigate by screen line
 nnoremap j gj
 nnoremap k gk
-" remap fold tag
-nnoremap <leader>ft Vatzf
 
 " autosave on lost focus
 au FocusLost * :wa
-"nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+
+" compile less files straight to css
+nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
 
 "for Zend phtml files
 "autocmd BufEnter *.phtml set syn=php
+
+" color definitions
+if !exists("autocmd_colorscheme_loaded")
+    let autocmd_colorscheme_loaded = 1
+    autocmd ColorScheme * highlight TodoDarkRed      ctermbg=darkred guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
+    autocmd ColorScheme * highlight TodoRed   ctermbg=red guibg=#002b37 ctermfg=LightMagenta guifg=#E0841B
+    autocmd ColorScheme * highlight TodoYellow   ctermbg=LightYellow guibg=#002b37 ctermfg=red  guifg=#E0841B
+    autocmd ColorScheme * highlight TodoLightBlue   ctermbg=lightblue guibg=#002b37 ctermfg=red  guifg=#AEE6FF
+endif
 
 if has("autocmd")
     if v:version > 701
@@ -136,10 +135,16 @@ if has("autocmd")
     endif
 endif
 
-nnoremap <leader>a :Ack
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+nnoremap <C-p> :Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+nnoremap <space>/ :Unite grep:.<cr>
+nnoremap <space>e :<C-r>:Unite -no-split -buffer-name=buffer  buffer<cr>
+
+"let mapleader = "," " used for ack
+"nnoremap <leader>a :Ack
+"replaced with Unite at least for the moment
+
 nnoremap <F5> :GundoToggle<CR>
-" font settings
-" set guifont=Inconsolata\ 11
 
 syntax on
 filetype off
