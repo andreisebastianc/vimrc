@@ -61,14 +61,6 @@ set pastetoggle=<F2>
 :filetype plugin on
 set t_Co=256
 
-"set background=light
-"let g:solarized_termcolors=256
-"colorscheme herald
-"colorscheme Tomorrow-Night-Bright
-"colorscheme Tomorrow-Night
-"colorscheme Tomorrow
-colorscheme hemisu
-
 filetype plugin indent on "Enable filetype-specific indenting and plugins
 
 augroup myfiletypes
@@ -86,7 +78,7 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
 set showcmd
 set autoindent
-"set foldmethod=indent
+set foldmethod=indent
 " set expandtab
 " set smarttab
 set mouse=a
@@ -97,7 +89,7 @@ set visualbell
 set wrap
 set textwidth=79
 set formatoptions=qrn1
-set colorcolumn=85
+"set colorcolumn=85
 
 " show invisibile characters -> getting used to
 set list
@@ -111,7 +103,7 @@ nnoremap k gk
 au FocusLost * :wa
 
 " compile less files straight to css
-nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
+" nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
 
 "for Zend phtml files
 "autocmd BufEnter *.phtml set syn=php
@@ -150,3 +142,11 @@ nnoremap <F5> :GundoToggle<CR>
 syntax on
 filetype off
 filetype on
+
+"set background=light
+"let g:solarized_termcolors=256
+"colorscheme herald
+"colorscheme Tomorrow-Night-Bright
+"colorscheme Tomorrow-Night
+"colorscheme Tomorrow
+colorscheme hemisu
