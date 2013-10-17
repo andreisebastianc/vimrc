@@ -36,6 +36,7 @@ set noerrorbells
 set title
 set ignorecase
 set smartcase
+set wildmenu
 set gdefault " substitutions are made globally
 " handle search highlight and clear
 "set incsearch
