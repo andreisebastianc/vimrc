@@ -61,13 +61,13 @@ set pastetoggle=<F2>
 :filetype plugin on
 set t_Co=256
 
-set background=light
+"set background=light
 "let g:solarized_termcolors=256
 "colorscheme herald
-colorscheme solarized
 "colorscheme Tomorrow-Night-Bright
 "colorscheme Tomorrow-Night
 "colorscheme Tomorrow
+colorscheme hemisu
 
 filetype plugin indent on "Enable filetype-specific indenting and plugins
 
