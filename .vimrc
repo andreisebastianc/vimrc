@@ -3,9 +3,6 @@ call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 call pathogen#helptags()
 
-autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
-
 nmap <silent> <C-d> :NERDTreeToggle<CR>
 imap <silent> <C-d> :NERDTreeToggle<CR>
 
@@ -78,7 +75,7 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
 set showcmd
 set autoindent
-set foldmethod=indent
+"set foldmethod=indent
 " set expandtab
 " set smarttab
 set mouse=a
@@ -128,6 +125,14 @@ if has("autocmd")
     endif
 endif
 
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+            \ 'ignore_pattern', join([
+            \ '\.git/',
+            \ '\**/node_modules/',
+            \ '\**/steal/',
+            \ '\**/.grunt/',
+            \ ], '\|'))
+
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <C-p> :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
 nnoremap <space>/ :Unite grep:.<cr>
@@ -149,4 +154,10 @@ filetype on
 "colorscheme Tomorrow-Night-Bright
 "colorscheme Tomorrow-Night
 "colorscheme Tomorrow
-colorscheme hemisu
+"colorscheme hemisu
+colorscheme Tomorrow-Night-Eighties
+
+if &term =~ "xterm" || &term =~ "screen"
+    set ttymouse=xterm2
+    autocmd VimEnter,FocusGained,BufEnter * set ttymouse=xterm2
+endif
