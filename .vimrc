@@ -73,6 +73,9 @@ augroup END
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
+" 72 columns to commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
 set showcmd
 set autoindent
 "set foldmethod=indent
