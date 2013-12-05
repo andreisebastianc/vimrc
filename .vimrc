@@ -7,16 +7,12 @@ nmap <silent> <C-d> :NERDTreeToggle<CR>
 imap <silent> <C-d> :NERDTreeToggle<CR>
 
 set modelines=0 " don't use modelines
-
 set nocompatible
-
 set encoding=utf-8
-
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-
 set hidden
 set autoindent
 set number
@@ -151,14 +147,15 @@ syntax on
 filetype off
 filetype on
 
-"set background=light
+set background=dark
 "let g:solarized_termcolors=256
 "colorscheme herald
 "colorscheme Tomorrow-Night-Bright
 "colorscheme Tomorrow-Night
 "colorscheme Tomorrow
 "colorscheme hemisu
-colorscheme Tomorrow-Night-Eighties
+"colorscheme Tomorrow-Night-Eighties
+colorscheme seoul256
 
 if &term =~ "xterm" || &term =~ "screen"
     set ttymouse=xterm2
