@@ -52,7 +52,6 @@ map <C-l> <C-w>l
 cmap w!! w !sudo tee % >/dev/null
 set pastetoggle=<F2>
 :filetype plugin on
-set t_Co=256
 
 filetype plugin indent on "Enable filetype-specific indenting and plugins
 
@@ -104,26 +103,6 @@ au FocusLost * :wa
 "for Zend phtml files
 "autocmd BufEnter *.phtml set syn=php
 
-" color definitions
-if !exists("autocmd_colorscheme_loaded")
-    let autocmd_colorscheme_loaded = 1
-    autocmd ColorScheme * highlight TodoDarkRed      ctermbg=darkred guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
-    autocmd ColorScheme * highlight TodoRed   ctermbg=red guibg=#002b37 ctermfg=LightMagenta guifg=#E0841B
-    autocmd ColorScheme * highlight TodoYellow   ctermbg=LightYellow guibg=#002b37 ctermfg=red  guifg=#E0841B
-    autocmd ColorScheme * highlight TodoLightBlue   ctermbg=lightblue guibg=#002b37 ctermfg=red  guifg=#AEE6FF
-endif
-
-if has("autocmd")
-    if v:version > 701
-        autocmd Syntax * call matchadd('TodoDarkRed',  '\W\zs\(BUG\)')
-        autocmd Syntax * call matchadd('TodoYellow', '\W\zs\(TODO\)')
-        autocmd Syntax * call matchadd('TodoDarkRed',  '\W\zs\(TODO1\)')
-        autocmd Syntax * call matchadd('TodoRed', '\W\zs\(TODO2\)')
-        autocmd Syntax * call matchadd('TodoLightBlue', '\W\zs\(Server\)')
-        autocmd Syntax * call matchadd('TodoLightBlue', '\W\zs\(NOTE\)')
-    endif
-endif
-
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
             \ 'ignore_pattern', join([
             \ '\.git/',
@@ -147,15 +126,35 @@ syntax on
 filetype off
 filetype on
 
+if !exists("autocmd_colorscheme_loaded")
+    let autocmd_colorscheme_loaded = 1
+    autocmd ColorScheme * highlight todo      ctermbg=red guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
+    autocmd ColorScheme * highlight note   ctermbg=LightYellow guibg=#002b37 ctermfg=DarkRed guifg=#E0841B
+    autocmd ColorScheme * highlight reminder   ctermbg=blue guibg=#002b37 ctermfg=LightYellow  guifg=#E0D91B
+endif
+if has("autocmd")
+    if v:version > 701
+        autocmd Syntax * call matchadd('todo',  '\W\zs\(@todo\)')
+        autocmd Syntax * call matchadd('note', '\W\zs\(@note\)')
+        autocmd Syntax * call matchadd('reminder', '\W\zs\(@rem\)')
+    endif
+endif
+
+set t_Co=256
 set background=dark
 "let g:solarized_termcolors=256
+"colorscheme distinguished
 "colorscheme herald
 "colorscheme Tomorrow-Night-Bright
 "colorscheme Tomorrow-Night
 "colorscheme Tomorrow
 "colorscheme hemisu
 "colorscheme Tomorrow-Night-Eighties
-colorscheme seoul256
+"colorscheme seoul256
+colorscheme herald
+"colorscheme vimbrant
+highlight ColorColumn ctermbg=7
+highlight ColorColumn guibg=Gray
 
 if &term =~ "xterm" || &term =~ "screen"
     set ttymouse=xterm2
