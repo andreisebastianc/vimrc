@@ -107,7 +107,11 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
             \ 'ignore_pattern', join([
             \ '\.git/',
             \ '\**/node_modules/',
+            \ '\**/bower_components/',
             \ '\**/steal/',
+            \ '\**/.tmp/',
+            \ '\**/.sw*/',
+            \ '\**/.un~/',
             \ '\**/.grunt/',
             \ ], '\|'))
 
