@@ -59,7 +59,7 @@ augroup myfiletypes
     " Clear old autocmds in group
     autocmd!
     " autoindent with two spaces, always expand tabs
-    autocmd FileType ruby,eruby,yaml,js set ai sw=2 sts=2 et
+    autocmd FileType ruby,eruby,yaml,js,ts set ai sw=2 sts=2 et
 augroup END
 
 :set cpoptions+=$
@@ -67,6 +67,9 @@ augroup END
 " new ones
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+
+" recognize typescript files
+autocmd BufRead,BufNewFile *.ts set filetype=typescript
 
 " 72 columns to commit messages
 autocmd Filetype gitcommit setlocal spell textwidth=72
@@ -109,14 +112,24 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
             \ '\**/node_modules/',
             \ '\**/bower_components/',
             \ '\**/steal/',
+            \ '\**/target/',
+            \ '\**/assets/js',
+            \ '\**/logs/',
+            \ '\**/highlight/',
+            \ '\**/tmp/',
+            \ '\**/dist/',
             \ '\**/.tmp/',
-            \ '\**/.sw*/',
-            \ '\**/.un~/',
+            \ '\**/.sw\*/',
+            \ '\**/.sass-cache/',
+            \ '\**/.tscache/',
+            \ '\**/.un\~/',
             \ '\**/.grunt/',
             \ ], '\|'))
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <C-p> :Unite -no-split -buffer-name=files -start-insert file_rec/async:!<cr>
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+nnoremap <C-p> :Unite -no-split -buffer-name=files -start-insert file_rec/async:.<cr>
 nnoremap <space>/ :Unite grep:.<cr>
 nnoremap <space>e :Unite -no-split -buffer-name=buffer -quick-match buffer<cr>
 
@@ -134,12 +147,14 @@ if !exists("autocmd_colorscheme_loaded")
     let autocmd_colorscheme_loaded = 1
     autocmd ColorScheme * highlight todo      ctermbg=red guibg=#002b37 ctermfg=LightRed     guifg=#E01B1B
     autocmd ColorScheme * highlight note   ctermbg=LightYellow guibg=#002b37 ctermfg=DarkRed guifg=#E0841B
+    autocmd ColorScheme * highlight followup   ctermbg=green guibg=#002b37 ctermfg=White guifg=#ffffff
     autocmd ColorScheme * highlight reminder   ctermbg=blue guibg=#002b37 ctermfg=LightYellow  guifg=#E0D91B
 endif
 if has("autocmd")
     if v:version > 701
         autocmd Syntax * call matchadd('todo',  '\W\zs\(@todo\)')
         autocmd Syntax * call matchadd('note', '\W\zs\(@note\)')
+        autocmd Syntax * call matchadd('followup', '\W\zs\(@followup\)')
         autocmd Syntax * call matchadd('reminder', '\W\zs\(@rem\)')
     endif
 endif
@@ -156,6 +171,7 @@ set background=dark
 "colorscheme Tomorrow-Night-Eighties
 "colorscheme seoul256
 colorscheme herald
+"colorscheme hybrid
 "colorscheme vimbrant
 highlight ColorColumn ctermbg=7
 highlight ColorColumn guibg=Gray
