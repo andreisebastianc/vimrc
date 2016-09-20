@@ -1,10 +1,22 @@
-" ~/.vimrc (configuration file for vim only)
-call pathogen#runtime_append_all_bundles()
-filetype plugin indent on
-call pathogen#helptags()
+set nocompatible
 
-nmap <silent> <C-d> :NERDTreeToggle<CR>
-imap <silent> <C-d> :NERDTreeToggle<CR>
+call plug#begin('~/.vim/plugged')
+
+Plug 'spolu/dwm.vim'
+Plug 'w0ng/vim-hybrid'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'szw/vim-maximizer'
+Plug 'myusuf3/numbers.vim'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Shougo/unite.vim'
+Plug 'rstacruz/vim-fastunite'
+Plug 'joukevandermaas/vim-ember-hbs'
+
+call plug#end()
+
+filetype plugin indent on
 
 set modelines=0 " don't use modelines
 set nocompatible
@@ -32,53 +44,10 @@ set smartcase
 set wildmenu
 set gdefault " substitutions are made globally
 " handle search highlight and clear
-"set incsearch
-"set showmatch
-"set hlsearch
 nnoremap <leader><space> :noh<cr>
 " use tab to navigate match bracket pairs
-nnoremap <tab> %
-vnoremap <tab> %
-" set smarttab
-
-"let &statusline="%< %f %{fugitive#statusline()} ... (When I grow up, I'd like to be dangerous.)"
-"navigation helper
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-"for sudo purpose
-cmap w!! w !sudo tee % >/dev/null
-set pastetoggle=<F2>
-:filetype plugin on
-
-filetype plugin indent on "Enable filetype-specific indenting and plugins
-
-augroup myfiletypes
-    " Clear old autocmds in group
-    autocmd!
-    " autoindent with two spaces, always expand tabs
-    autocmd FileType ruby,eruby,yaml,js,ts set ai sw=2 sts=2 et
-augroup END
-
-:set cpoptions+=$
-
-" new ones
-" Remove any trailing whitespace that is in the file
-autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
-
-" recognize typescript files
-autocmd BufRead,BufNewFile *.ts set filetype=typescript
-
-" 72 columns to commit messages
-autocmd Filetype gitcommit setlocal spell textwidth=72
-
 set showcmd
 set autoindent
-"set foldmethod=indent
-" set expandtab
-" set smarttab
 set mouse=a
 set nohidden
 set noerrorbells
@@ -87,11 +56,12 @@ set visualbell
 set wrap
 set textwidth=79
 set formatoptions=qrn1
-"set colorcolumn=85
-
 " show invisibile characters -> getting used to
 set list
 set listchars=tab:▸\ ,eol:¬
+set clipboard=unnamed
+
+syntax on
 
 " navigate by screen line
 nnoremap j gj
@@ -100,48 +70,23 @@ nnoremap k gk
 " autosave on lost focus
 au FocusLost * :wa
 
-" compile less files straight to css
-" nnoremap ,m :w <BAR> !lessc % > %:t:r.css<CR><space>
-
 "for Zend phtml files
 "autocmd BufEnter *.phtml set syn=php
-
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-            \ 'ignore_pattern', join([
-            \ '\.git/',
-            \ '\**/node_modules/',
-            \ '\**/bower_components/',
-            \ '\**/steal/',
-            \ '\**/target/',
-            \ '\**/assets/js',
-            \ '\**/logs/',
-            \ '\**/highlight/',
-            \ '\**/tmp/',
-            \ '\**/dist/',
-            \ '\**/.tmp/',
-            \ '\**/.sw\*/',
-            \ '\**/.sass-cache/',
-            \ '\**/.tscache/',
-            \ '\**/.un\~/',
-            \ '\**/.grunt/',
-            \ ], '\|'))
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 
-nnoremap <C-p> :Unite -no-split -buffer-name=files -start-insert file_rec/async:.<cr>
+map <C-p> [unite]p
 nnoremap <space>/ :Unite grep:.<cr>
 nnoremap <space>e :Unite -no-split -buffer-name=buffer -quick-match buffer<cr>
+let g:unite_enable_split_vertically = 0
+let g:unite_winheight = 30
+let g:unite_data_directory = '~/.vim/tmp/unite/'
+let g:unite_source_grep_default_opts = '--column --no-color --nogroup --with-filename'
 
 "let mapleader = "," " used for ack
 "nnoremap <leader>a :Ack
 "replaced with Unite at least for the moment
-
-nnoremap <F5> :GundoToggle<CR>
-
-syntax on
-filetype off
-filetype on
 
 if !exists("autocmd_colorscheme_loaded")
     let autocmd_colorscheme_loaded = 1
@@ -158,25 +103,27 @@ if has("autocmd")
         autocmd Syntax * call matchadd('reminder', '\W\zs\(@rem\)')
     endif
 endif
+nnoremap <tab> %
+vnoremap <tab> %
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+set pastetoggle=<F2>
+
+:set cpoptions+=$
+
+" Remove any trailing whitespace that is in the file
+autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+
+" recognize typescript files
+autocmd BufRead,BufNewFile *.ts set filetype=typescript
+
+" 72 columns to commit messages
+autocmd Filetype gitcommit setlocal spell textwidth=72
 
 set t_Co=256
 set background=dark
-"let g:solarized_termcolors=256
-"colorscheme distinguished
-"colorscheme herald
-"colorscheme Tomorrow-Night-Bright
-"colorscheme Tomorrow-Night
-"colorscheme Tomorrow
-"colorscheme hemisu
-"colorscheme Tomorrow-Night-Eighties
-"colorscheme seoul256
-colorscheme herald
-"colorscheme hybrid
-"colorscheme vimbrant
-highlight ColorColumn ctermbg=7
-highlight ColorColumn guibg=Gray
-
-if &term =~ "xterm" || &term =~ "screen"
-    set ttymouse=xterm2
-    autocmd VimEnter,FocusGained,BufEnter * set ttymouse=xterm2
-endif
+colorscheme hybrid
